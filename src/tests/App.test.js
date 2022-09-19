@@ -62,7 +62,7 @@ describe('Se o topo da aplicação contém um conjunto fixo de links de navegaç
         history.push('/xablau');
       });
       const title = screen.getByRole('heading', {
-        name: /Page requested not found/i,
+        name: 'Page requested not found',
       });
       expect(title).toBeInTheDocument();
     });
