@@ -3,9 +3,12 @@ import { screen } from '@testing-library/react';
 import renderWithRouter from '../renderWithRouter';
 import NotFound from '../pages/NotFound';
 
+beforeEach(() => {
+  renderWithRouter(<NotFound />);
+});
+
 describe('Teste o componente <NotFound.js />', () => {
   it('Se a página contém um heading h2 com o texto Page requested not found', () => {
-    renderWithRouter(<NotFound />);
     const title = screen.getByRole('heading', {
       name: 'Page requested not found', level: 2,
     });
@@ -13,7 +16,6 @@ describe('Teste o componente <NotFound.js />', () => {
   });
 
   it('Teste se a página mostra a imagem', () => {
-    renderWithRouter(<NotFound />);
     const link = 'https://media.giphy.com/media/kNSeTs31XBZ3G/giphy.gif';
     const img = screen.getByRole('img');
     expect(img).toHaveAttribute('src', link);
