@@ -31,31 +31,40 @@ describe('Se o topo da aplicação contém um conjunto fixo de links de navegaç
     expect(history.location.pathname).toBe('/');
   });
 
-  it(`Teste se a aplicação é redirecionada para a página de About, na URL
-      /about, ao clicar no link About da barra de navegação`, () => {
-    const { history } = renderWithRouter(<App />);
-    const link = screen.getByRole('link', { name: 'About' });
-    userEvent.click(link);
-    expect(history.location.pathname).toBe('/about');
+  describe('Teste se a aplicação é redirecionada para a página de About', () => {
+    it('na URL /about, ao clicar no link About da barra de navegação', () => {
+      const { history } = renderWithRouter(<App />);
+      const link = screen.getByRole('link', { name: 'About' });
+      userEvent.click(link);
+      expect(history.location.pathname).toBe('/about');
+    });
   });
 
-  it(`Teste se a aplicação é redirecionada para a página de Pokémons Favoritados, na URL
-      /favorites, ao clicar no link Favorite Pokémons da barra de navegação`, () => {
-    const { history } = renderWithRouter(<App />);
-    const link = screen.getByRole('link', { name: 'Favorite Pokémons' });
-    userEvent.click(link);
-    expect(history.location.pathname).toBe('/favorites');
-  });
+  describe(
+    'Teste se a aplicação é redirecionada para a página de Pokémons Favoritados',
+    () => {
+      it(
+        'na URL /favorites, ao clicar no link Favorite Pokémons da barra de navegação',
+        () => {
+          const { history } = renderWithRouter(<App />);
+          const link = screen.getByRole('link', { name: 'Favorite Pokémons' });
+          userEvent.click(link);
+          expect(history.location.pathname).toBe('/favorites');
+        },
+      );
+    },
+  );
 
-  it(`Teste se a aplicação é redirecionada para a página Not Found ao entrar em uma 
-      URL desconhecida`, () => {
-    const { history } = renderWithRouter(<App />);
-    act(() => {
-      history.push('/xablau');
+  describe('Teste se a aplicação é redirecionada para a página Not Found', () => {
+    it('ao entrar em uma URL desconhecida', () => {
+      const { history } = renderWithRouter(<App />);
+      act(() => {
+        history.push('/xablau');
+      });
+      const title = screen.getByRole('heading', {
+        name: /Page requested not found/i,
+      });
+      expect(title).toBeInTheDocument();
     });
-    const title = screen.getByRole('heading', {
-      name: /Page requested not found/i,
-    });
-    expect(title).toBeInTheDocument();
   });
 });
