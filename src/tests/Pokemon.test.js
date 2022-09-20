@@ -8,12 +8,6 @@ beforeEach(() => {
   renderWithRouter(<App />);
 });
 
-describe('', () => {
-  it('', () => {
-
-  });
-});
-
 describe('Se é renderizado um card com as informações de determinado pokémon:', () => {
   // it('O nome correto do pokémon deve ser mostrado na tela', () => {
   //   const getNamePokemon = screen.getByTestId('pokemon-name');
