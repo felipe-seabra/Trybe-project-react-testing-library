@@ -69,3 +69,22 @@ describe('Teste se existe um ícone de estrela nos pokémons favoritados', () =>
   //   expect(history.location.pathname).toBe('/pokemons/25');
   // });
 });
+
+describe('Teste se ao clicar no link de navegação do pokémon', () => {
+  it('Redirecionamento da aplicação para a página de detalhes de pokémon', () => {
+    const link = screen.getByRole('link', { name: /more details/i });
+    userEvent.click(link);
+    const title = screen.getByRole('heading', { name: /pikachu details/i });
+
+    expect(title).toBeInTheDocument();
+  });
+});
+
+describe('Teste se o card do pokémon indicado na Pokédex contém um link', () => {
+  it('O link deve possuir a URL /pokemons/<id>', () => {
+    const link = screen.getByRole('link', { name: /more details/i });
+
+    const id = '/pokemons/25';
+    expect(link).toHaveAttribute('href', id);
+  });
+});
