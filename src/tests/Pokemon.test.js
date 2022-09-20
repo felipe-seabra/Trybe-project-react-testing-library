@@ -1,1 +1,71 @@
-test('', () => {});
+import React from 'react';
+import { screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import renderWithRouter from '../renderWithRouter';
+import App from '../App';
+
+beforeEach(() => {
+  renderWithRouter(<App />);
+});
+
+describe('', () => {
+  it('', () => {
+
+  });
+});
+
+describe('Se é renderizado um card com as informações de determinado pokémon:', () => {
+  // it('O nome correto do pokémon deve ser mostrado na tela', () => {
+  //   const getNamePokemon = screen.getByTestId('pokemon-name');
+  //   expect(getNamePokemon).toHaveTextContent(/Pikachu/i);
+  // });
+
+  it('O tipo correto do pokémon deve ser mostrado na tela', () => {
+    const typePokemon = screen.getByTestId('pokemon-type');
+
+    expect(typePokemon).toHaveTextContent(/Electric/i);
+  });
+
+  it('O peso médio do pokémon deve ser exibido', () => {
+    const text = 'Average weight: 6.0 kg';
+    const weightPokemon = screen.getByTestId('pokemon-weight');
+
+    expect(weightPokemon).toHaveTextContent(text);
+  });
+
+  it('A imagem do pokémon deve ser exibida', () => {
+    const link = 'https://cdn2.bulbagarden.net/upload/b/b2/Spr_5b_025_m.png';
+    const getNamePokemon = screen.getByTestId('pokemon-name');
+    const namePokemon = `${getNamePokemon.textContent} sprite`;
+    const img = screen.getByRole('img');
+
+    expect(img).toHaveAttribute('src', link);
+    expect(img).toHaveAttribute('alt', namePokemon);
+  });
+});
+
+describe('Teste se existe um ícone de estrela nos pokémons favoritados', () => {
+  it('Imagem com o atributo src contendo o caminho /star-icon.svg e o alt', () => {
+    const link = screen.getByRole('link', { name: /more details/i });
+    userEvent.click(link);
+    const favorite = screen.getByText(/pokémon favoritado\?/i);
+    userEvent.click(favorite);
+    const home = screen.getByRole('link', { name: /home/i });
+    userEvent.click(home);
+    const star = screen.getByRole('img', {
+      name: /pikachu is marked as favorite/i,
+    });
+    const getNamePokemon = screen.getByTestId('pokemon-name');
+
+    expect(star).toHaveAttribute('src', '/star-icon.svg');
+    expect(star)
+      .toHaveAttribute('alt', `${getNamePokemon.textContent} is marked as favorite`);
+  });
+
+  // it('Teste também se a URL exibida no navegador muda para /pokemon/<id>', () => {
+  //   const { history } = renderWithRouter(<App />);
+  //   const link = screen.getByRole('link', { name: /more details/i });
+  //   userEvent.click(link);
+  //   expect(history.location.pathname).toBe('/pokemons/25');
+  // });
+});
