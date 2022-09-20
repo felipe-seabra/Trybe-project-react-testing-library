@@ -99,3 +99,17 @@ describe(`Se é exibido o próximo pokémon da lista quando o botão Próximo po
     userEvent.click(buttonAll);
   });
 });
+
+it('Se tem a quantidade correta de botões', () => {
+  const qtdButons = 7;
+  const buttons = screen.getAllByTestId('pokemon-type-button');
+  expect(buttons.length).toBe(qtdButons);
+});
+
+it('Se o texto corresponde ao tipo', () => {
+  const buttons = screen.getByRole('button', { name: /fire/i });
+  userEvent.click(buttons);
+
+  const type = screen.getAllByTestId('pokemon-type');
+  expect(type[0].textContent).toBe('Fire');
+});
