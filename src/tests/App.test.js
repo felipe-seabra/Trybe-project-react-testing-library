@@ -61,9 +61,7 @@ describe('Se o topo da aplicação contém um conjunto fixo de links de navegaç
       act(() => {
         history.push('/xablau');
       });
-      const title = screen.getByRole('heading', {
-        name: 'Page requested not found',
-      });
+      const title = screen.getByRole('heading', { name: 'Page requested not found' });
       expect(title).toBeInTheDocument();
     });
   });
